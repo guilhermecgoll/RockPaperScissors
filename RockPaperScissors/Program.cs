@@ -86,8 +86,13 @@ namespace RockPaperScissors
             return winner;
         }
 
-        public Player rps_tournament_winner()
+        public Player rps_tournament_winner(Player[] players)
         {
+            for (int i = 0; i < players.Length; i++)
+            {
+
+            }
+
             return null;
         }
 
