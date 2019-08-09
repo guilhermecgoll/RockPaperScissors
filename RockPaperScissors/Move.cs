@@ -10,6 +10,6 @@ namespace RockPaperScissors
     {
         Rock,
         Paper,
-        Scissor
+        Scissors
     }
 }

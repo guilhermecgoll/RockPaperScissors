@@ -11,9 +11,20 @@ namespace RockPaperScissors
     class Program
     {
         const int QTT_PLAYERS = 2;
+
         static void Main(string[] args)
         {
+            Program p = new Program();
+            Player rock = new Player("The Rock", Move.Rock);
+            Player scissors = new Player("Edward Scissors Hands", Move.Scissors);
+            Player paper = new Player("Toilet Paper", Move.Paper);
 
+            List<Player> players = new List<Player>();
+            players.Add(paper);
+            players.Add(rock);
+
+            Console.WriteLine($"O vencedor é {p.rps_game_winner(players)}");
+            Console.Read();
         }
 
         public Player rps_game_winner(List<Player> players)
@@ -34,26 +45,50 @@ namespace RockPaperScissors
             Player first = players[0];
             Player second = players[1];
 
+            #region choosing the winner
             switch (first.move.ToUpper())
             {
                 case "R":
-                    if (Regex.Match(players[1].move, @"[]").Success)
+                    if (Regex.Match(second.move, @"[RrSs]").Success)
                     {
-
-                    } else
+                        winner = first;
+                    }
+                    else
                     {
-                        winner = players
+                        winner = second;
                     }
                     break;
                 case "S":
+                    if (Regex.Match(second.move, @"[SsPp]").Success)
+                    {
+                        winner = first;
+                    }
+                    else
+                    {
+                        winner = second;
+                    }
                     break;
                 case "P":
+                    if (Regex.Match(second.move, @"[PpRr]").Success)
+                    {
+                        winner = first;
+                    }
+                    else
+                    {
+                        winner = second;
+                    }
                     break;
                 default:
                     throw new NoSuchStrategyError();
             }
+            #endregion
 
-            return players.FirstOrDefault();
+            return winner;
+        }
+
+        public Player rps_tournament_winner()
+        {
+            return null;
         }
 
     }
