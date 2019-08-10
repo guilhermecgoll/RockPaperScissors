@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace RockPaperScissors
 {
@@ -15,19 +13,46 @@ namespace RockPaperScissors
         static void Main(string[] args)
         {
             Program p = new Program();
-            Player rock = new Player("The Rock", Move.Rock);
-            Player scissors = new Player("Edward Scissors Hands", Move.Scissors);
-            Player paper = new Player("Toilet Paper", Move.Paper);
+            p.TestMatchWinner();
+            p.TestTournament();
 
-            List<Player> players = new List<Player>();
-            players.Add(paper);
-            players.Add(rock);
-
-            Console.WriteLine($"O vencedor é {p.rps_game_winner(players)}");
             Console.Read();
         }
 
-        public Player rps_game_winner(List<Player> players)
+        private void TestMatchWinner()
+        {
+            List<Player> players = new List<Player>();
+            createPlayerAndAdd("Armando", Move.Paper, players);
+            createPlayerAndAdd("Dave", Move.Scissors, players);
+
+            Console.WriteLine($"The winner is {rps_game_winner(players)}");
+        }
+
+        private void TestTournament()
+        {
+            List<Player> players = new List<Player>();
+            createPlayerAndAdd("Armando", Move.Paper, players);
+            createPlayerAndAdd("Dave", Move.Scissors, players);
+            createPlayerAndAdd("Richard", Move.Rock, players);
+            createPlayerAndAdd("Michael", Move.Scissors, players);
+
+            createPlayerAndAdd("Allen", Move.Scissors, players);
+            createPlayerAndAdd("Omer", Move.Paper, players);
+            createPlayerAndAdd("David. E", Move.Rock, players);
+            createPlayerAndAdd("Richard X.", Move.Paper, players);
+
+            Game[] games = createMatches(players);
+
+            Console.WriteLine($"The tournament winner is {rps_tournament_winner(games)}");
+        }
+
+        private void createPlayerAndAdd(string nome, Move move, List<Player> addTo)
+        {
+            Player p = new Player(nome, move);
+            addTo.Add(p);
+        }
+
+        private Player rps_game_winner(List<Player> players)
         {
             //If the number of players is not equal to 2, raise WrongNumberOfPlayersError.
             if (players.Count != QTT_PLAYERS)
@@ -86,15 +111,53 @@ namespace RockPaperScissors
             return winner;
         }
 
-        public Player rps_tournament_winner(Player[] players)
+        private Player rps_tournament_winner(Game[] games)
         {
-            for (int i = 0; i < players.Length; i++)
-            {
+            List<Player> winner = new List<Player>();
 
+            Game[] matches = games;
+            while (winner.Count != 1)
+            {
+                foreach (Game g in matches)
+                {
+                    winner.Add(rps_game_winner(g.players));
+                }
+                if (winner.Count > 1)
+                {
+                    matches = createMatches(winner);
+                    winner.Clear();
+                }
             }
 
-            return null;
+            return winner.FirstOrDefault();
         }
 
+        private Game[] createMatches(List<Player> players)
+        {
+            List<Game> games = new List<Game>();
+            int half = players.Count / 2;
+
+            int i = 0;
+            while (players.Count >= (i + 1))
+            {
+                Game game = new Game();
+                game.players.Add(players[i]);
+                if (players.Count >= (i + 1))
+                {
+                    i++;
+                    game.players.Add(players[i]);
+                    i++;
+                }
+                else
+                {
+                    //add himself/ herself, so he/ she will automatically be the winner
+                    game.players.Add(players[i]);
+                    i++;
+                }
+                games.Add(game);
+            }
+
+            return games.ToArray();
+        }
     }
 }
