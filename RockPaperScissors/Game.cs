@@ -3,7 +3,7 @@ using System.Text;
 
 namespace RockPaperScissors
 {
-    class Game
+    public class Game
     {
         public List<Player> players = new List<Player>();
 

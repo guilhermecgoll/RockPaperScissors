@@ -6,20 +6,20 @@ using System.Text.RegularExpressions;
 
 namespace RockPaperScissors
 {
-    class Program
+    public class Program
     {
         const int QTT_PLAYERS = 2;
 
         static void Main(string[] args)
         {
             Program p = new Program();
-            p.TestMatchWinner();
-            p.TestTournament();
+            p.CallDefaultMatchWinner();
+            p.CallDefaultTournament();
 
             Console.Read();
         }
 
-        private void TestMatchWinner()
+        private void CallDefaultMatchWinner()
         {
             List<Player> players = new List<Player>();
             createPlayerAndAdd("Armando", Move.Paper, players);
@@ -28,7 +28,7 @@ namespace RockPaperScissors
             Console.WriteLine($"The winner is {rps_game_winner(players)}");
         }
 
-        private void TestTournament()
+        private void CallDefaultTournament()
         {
             List<Player> players = new List<Player>();
             createPlayerAndAdd("Armando", Move.Paper, players);
@@ -46,13 +46,13 @@ namespace RockPaperScissors
             Console.WriteLine($"The tournament winner is {rps_tournament_winner(games)}");
         }
 
-        private void createPlayerAndAdd(string nome, Move move, List<Player> addTo)
+        public void createPlayerAndAdd(string nome, Move move, List<Player> addTo)
         {
             Player p = new Player(nome, move);
             addTo.Add(p);
         }
 
-        private Player rps_game_winner(List<Player> players)
+        public Player rps_game_winner(List<Player> players)
         {
             //If the number of players is not equal to 2, raise WrongNumberOfPlayersError.
             if (players.Count != QTT_PLAYERS)
@@ -111,7 +111,7 @@ namespace RockPaperScissors
             return winner;
         }
 
-        private Player rps_tournament_winner(Game[] games)
+        public Player rps_tournament_winner(Game[] games)
         {
             List<Player> winner = new List<Player>();
 
@@ -132,7 +132,7 @@ namespace RockPaperScissors
             return winner.FirstOrDefault();
         }
 
-        private Game[] createMatches(List<Player> players)
+        public Game[] createMatches(List<Player> players)
         {
             List<Game> games = new List<Game>();
             int half = players.Count / 2;
