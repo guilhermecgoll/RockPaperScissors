@@ -72,5 +72,35 @@ namespace RockPaperScissorsTest
 
 			Assert.AreEqual(Richard, p.rps_tournament_winner(games), "Erro ao verificar ganhador do torneio");
 		}
+
+		[TestMethod]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void TesteCriarEIncluirJogadorNaListaNula()
+		{
+			Program p = new Program();
+
+			p.createPlayerAndAdd("nome", Move.Paper, null);
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void TesteCriarEIncluirJogadorNaListaComJogadorSemNome()
+		{
+			Program p = new Program();
+
+			p.createPlayerAndAdd(string.Empty, Move.Paper, new List<Player>());
+		}
+
+		[TestMethod]
+		public void TesteCriarEIncluirJogadorNaLista()
+		{
+			Program p = new Program();
+			List<Player> lista = new List<Player>();
+
+			p.createPlayerAndAdd("João", Move.Paper, lista);
+
+			Assert.AreEqual(1, lista.Count);
+			Assert.AreEqual(new Player("João", Move.Paper), lista[0]);
+		}
 	}
 }

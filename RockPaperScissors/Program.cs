@@ -48,6 +48,15 @@ namespace RockPaperScissors
 
         public void createPlayerAndAdd(string nome, Move move, List<Player> addTo)
         {
+			if (addTo == null)
+			{
+				throw new ArgumentNullException("The list to add to is null");
+			}
+			if (string.IsNullOrEmpty(nome))
+			{
+				throw new ArgumentNullException("The player name is null or empty");
+			}
+
             Player p = new Player(nome, move);
             addTo.Add(p);
         }
