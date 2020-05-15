@@ -43,13 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\NoSuchStrategyError.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Move.cs" />
+    <Compile Include="Exceptions\InvallidMoveException.cs" />
+    <Compile Include="Exceptions\NoSuchStrategyException.cs" />
+    <Compile Include="Exceptions\PlayerAlreadySubscribedException.cs" />
+    <Compile Include="Match.cs" />
+    <Compile Include="Moves\EMove.cs" />
+    <Compile Include="Moves\IMove.cs" />
+    <Compile Include="Moves\MovePaper.cs" />
+    <Compile Include="Moves\MoveRock.cs" />
+    <Compile Include="Moves\MoveScissors.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Exceptions\WrongNumberOfPlayersError.cs" />
+    <Compile Include="Exceptions\WrongNumberOfPlayersException.cs" />
+    <Compile Include="Tournament.cs" />
+    <Compile Include="Exceptions\TournamentClosedException.cs" />
+    <Compile Include="Exceptions\ZeroPlayersSubscribedException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
